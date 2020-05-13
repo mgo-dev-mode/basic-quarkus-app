@@ -12,10 +12,9 @@ public class CoffeeResourceTest {
     @Test
     public void testHelloEndpoint() {
         given()
-          .when().get("/greetings")
+          .when().get("/coffee")
           .then()
-             .statusCode(200)
-             .body(is("hello"));
+             .statusCode(200);
     }
 
 }
