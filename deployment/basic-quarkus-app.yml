@@ -1,0 +1,104 @@
+apiVersion: v1
+items:
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    labels:
+      app: basic-quarkus-app
+    name: basic-quarkus-app
+    namespace: pipelines-tutorial
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: basic-quarkus-app
+      deploymentconfig: basic-quarkus-app
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        labels:
+          app: basic-quarkus-app
+          deploymentconfig: basic-quarkus-app
+      spec:
+        containers:
+        - image: image-registry.openshift-image-registry.svc:5000/pipelines-tutorial/basic-quarkus-app@sha256:d1f7c921f98454d3916e8020d0f5b1d09c187e449bb1da777c54181f4e14cd3a
+          imagePullPolicy: Always
+          name: basic-quarkus-app
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          - containerPort: 8443
+            protocol: TCP
+          - containerPort: 8778
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - basic-quarkus-app
+        from:
+          kind: ImageStreamTag
+          name: basic-quarkus-app:latest
+          namespace: pipelines-tutorial
+      type: ImageChange
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: basic-quarkus-app
+    name: basic-quarkus-app
+    namespace: pipelines-tutorial
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    - name: 8443-tcp
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
+    - name: 8778-tcp
+      port: 8778
+      protocol: TCP
+      targetPort: 8778
+    selector:
+      app: basic-quarkus-app
+      deploymentconfig: basic-quarkus-app
+    sessionAffinity: None
+    type: ClusterIP
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    labels:
+      app: basic-quarkus-app
+    name: basic-quarkus-app
+    namespace: pipelines-tutorial
+  spec:
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: basic-quarkus-app
+      weight: 100
+    wildcardPolicy: None
+kind: List
