@@ -66,5 +66,4 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/commons-io/commons-io/2.6/commons-io-2.6.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/io/quarkus/quarkus-openshift/1.4.2.Final/quarkus-openshift-1.4.2.Final.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/io/quarkus/quarkus-kubernetes-client-internal/1.4.2.Final/quarkus-kubernetes-client-internal-1.4.2.Final.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="M2_REPO/io/quarkus/quarkus-container-image-jib/1.4.2.Final/quarkus-container-image-jib-1.4.2.Final.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>
