@@ -30,7 +30,7 @@ items:
           deploymentconfig: basic-quarkus-app
       spec:
         containers:
-        - image: image-registry.openshift-image-registry.svc:5000/pipelines-tutorial/basic-quarkus-app@latest
+        - image: ''
           imagePullPolicy: Always
           name: basic-quarkus-app
           ports:
@@ -49,7 +49,17 @@ items:
         securityContext: {}
         terminationGracePeriodSeconds: 30
     test: false
-    triggers: []
+    triggers:
+      - type: ConfigChange
+      - imageChangeParams:
+        automatic: false
+        containerNames:
+        - basic-quarkus-app
+        from:
+          kind: ImageStreamTag
+          name: basic-quarkus-app:latest
+          namespace: pipelines-tutorial
+        type: ImageChange
 - apiVersion: v1
   kind: Service
   metadata:
