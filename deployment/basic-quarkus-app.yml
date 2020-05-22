@@ -30,7 +30,7 @@ items:
           deploymentconfig: basic-quarkus-app
       spec:
         containers:
-        - image: ''
+        - image: basic-quarkus-app:latest
           imagePullPolicy: Always
           name: basic-quarkus-app
           ports:
@@ -52,13 +52,13 @@ items:
     triggers:
       - type: ConfigChange
       - imageChangeParams:
-        automatic: false
-        containerNames:
-        - basic-quarkus-app
-        from:
-          kind: ImageStreamTag
-          name: basic-quarkus-app:latest
-          namespace: pipelines-tutorial
+          automatic: false
+          containerNames:
+          - basic-quarkus-app
+          from:
+            kind: ImageStreamTag
+            name: basic-quarkus-app:latest
+            namespace: pipelines-tutorial
         type: ImageChange
 - apiVersion: v1
   kind: Service
