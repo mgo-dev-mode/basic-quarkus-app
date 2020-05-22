@@ -49,8 +49,7 @@ items:
         securityContext: {}
         terminationGracePeriodSeconds: 30
     test: false
-    triggers:
-      - type: ConfigChange
+    triggers: []
 - apiVersion: v1
   kind: Service
   metadata:
