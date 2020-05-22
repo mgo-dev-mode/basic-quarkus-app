@@ -49,17 +49,6 @@ items:
         securityContext: {}
         terminationGracePeriodSeconds: 30
     test: false
-#    triggers:
-#    - type: ConfigChange
-#    - imageChangeParams:
-#        automatic: true
-#        containerNames:
-#        - basic-quarkus-app
-#        from:
-#          kind: ImageStreamTag
-#          name: basic-quarkus-app:latest
-#          namespace: pipelines-tutorial
-#      type: ImageChange
 - apiVersion: v1
   kind: Service
   metadata:
