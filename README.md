@@ -1,3 +1,3 @@
 # basic-quarkus-app project
 
-This project is intended for test purposes only #5
+This project is intended for test purposes only #6
